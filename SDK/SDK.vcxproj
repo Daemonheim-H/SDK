@@ -25,8 +25,9 @@
     <VCProjectVersion>15.0</VCProjectVersion>
     <ProjectGuid>{A9DB5598-7809-4787-90E8-72594C111F82}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>SDK2</RootNamespace>
+    <RootNamespace>SDK</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
+    <ProjectName>SDK</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
