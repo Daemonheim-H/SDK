@@ -5,6 +5,8 @@ struct ScriptContext;
 
 struct ScriptNPC;
 struct ScriptPlayer;
+struct ScriptObject;
+struct ScriptEffect;
 struct ScriptItem;
 struct ScriptStat;
 struct ScriptGroundItem;
@@ -85,6 +87,8 @@ struct ScriptGroundItem;
 #define M_BANK "Bank"
 #define M_INVENTORY "Inventory"
 #define M_GROUND_ITEMS "GroundItem"
+#define M_OBJECTS "Objects"
+#define M_EFFECTS "Effects"
 #define M_INPUT "Input"
 #define M_CRT "Crt"
 
@@ -129,6 +133,12 @@ typedef SIZE_T(*NPCsGetAll)(ScriptNPC* Out, SIZE_T Max);
 typedef BOOLEAN(*NPCsGetByServerIndex)(INT32 ServerIndex, ScriptNPC* Out);
 typedef BOOLEAN(*NPCsGetClosest)(INT32 Id, ScriptNPC* Out);
 typedef BOOLEAN(*NPCsGetClosestAlive)(INT32 Id, ScriptNPC* Out);
+
+typedef BOOLEAN(*ObjectsGetClosestId)(INT32 Id, ScriptObject* Out);
+typedef BOOLEAN(*ObjectsGetClosestName)(PCSTR Name, ScriptObject* Out);
+typedef BOOLEAN(*ObjectsGetAt)(INT32 Id, INT32 X, INT32 Y, ScriptObject* Out);
+
+typedef BOOLEAN(*EffectsGetClosest)(INT32 Id, ScriptEffect* Out);
 
 typedef ScriptPlayer(*PlayerGetSelf)();
 
@@ -239,6 +249,44 @@ struct ScriptPlayer
 	{
 		return ServerIndex != -1;
 	}
+};
+
+//
+// A scriptable effect.
+//
+struct ScriptEffect
+{
+	//
+	// The id of the effect.
+	//
+	INT32 Id = 0;
+	//
+	// The global position of the effect.
+	//
+	ScriptVec2i GlobalPosition;
+};
+
+//
+// A scriptable object.
+//
+struct ScriptObject
+{
+	//
+	// The id of the object.
+	//
+	INT32 Id = 0;
+	//
+	// The interact id of the object.
+	//
+	INT32 InteractId = 0;
+	//
+	// The name of the object.
+	//
+	CHAR Name[64];
+	//
+	// The global position of the object.
+	//
+	ScriptVec2i GlobalPosition;
 };
 
 //
