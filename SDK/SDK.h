@@ -1,6 +1,8 @@
 #pragma once
 #include <Windows.h>
 
+enum PlayerDisplayType;
+
 struct ScriptContext;
 
 struct ScriptNPC;
@@ -41,6 +43,7 @@ struct ScriptGroundItem;
 
 #define WIDGET_ID_PLAY 0x38a0083
 #define WIDGET_ID_LOOT_ALL 0x06560015
+#define WIDGET_ID_SHEATHE 96796738
 
 //
 // Stat indices
@@ -172,6 +175,12 @@ typedef VOID(*FnScriptOnInventoryItemChanged)(INT32 Slot, INT32 OldId, INT32 New
 typedef VOID(*FnOnScriptInit)(ScriptContext* C);
 typedef VOID(*FnRegisterScript)(FnOnScriptInit OnInit);
 
+enum PlayerDisplayType
+{
+	TOTAL_LEVEL = 1,
+	COMBAT_LEVEL = 2
+};
+
 //
 // A scriptable vector with 2 integer coordinates.
 //
@@ -225,6 +234,11 @@ struct ScriptPlayer
 	// The player's server index.
 	//
 	INT32 ServerIndex = 0;
+
+	//
+	// The name of the player.
+	//
+	CHAR Name[64];
 	//
 	// If the player is in an animation.
 	//
@@ -241,6 +255,14 @@ struct ScriptPlayer
 	// The global position of the player.
 	//
 	ScriptVec2i GlobalPosition;
+	//
+	// The player's display type.
+	//
+	PlayerDisplayType DisplayType;
+	//
+	// The player's total skill level (may be 0 if display type is not toatl level.)
+	//
+	UINT32 TotalLevel;
 
 	//
 	// Determines if this player is valid.
