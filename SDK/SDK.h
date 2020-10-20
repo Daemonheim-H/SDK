@@ -17,7 +17,7 @@ struct ScriptGroundItem;
 // Meta data.
 //
 
-#define SDK_VERSION 0
+#define SDK_VERSION 3
 
 #define MENU_EXECUTE_WALK 0
 #define MENU_EXECUTE_PLAYER 1
@@ -472,6 +472,18 @@ struct SDK
 	}
 };
 
+struct PersistentData
+{
+	//
+	// A status string.
+	//
+	CHAR Status[128];
+	//
+	// Anything small.
+	//
+	CHAR Anything[1];
+};
+
 //
 // A script context, which will be passed to the entry point of the script.
 //
@@ -481,6 +493,10 @@ struct ScriptContext
 	// The SDK for our script. We should save this somewhere.
 	//
 	SDK ScriptSDK;
+	//
+	// A blob of persistent data that will be reserved across auto-reloads.
+	//
+	PersistentData* Persistent;
 	//
 	// Called when the script engine loops.
 	//
@@ -493,6 +509,10 @@ struct ScriptContext
 	// Called when an item is changed in the inventory.
 	//
 	FnScriptOnInventoryItemChanged OnInventoryItemChanged = NULL;
+	//
+	// The SDK version of the script. This must be filled in for compatibility reasons.
+	//
+	UINT32 SDKVersion = 0;
 };
 
 //
